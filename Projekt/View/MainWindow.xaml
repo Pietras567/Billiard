@@ -1,0 +1,58 @@
+﻿<Window x:Class="View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
+        mc:Ignorable="d"
+        Title="Billiards Game" Height="750" Width="900" WindowStartupLocation="CenterScreen">
+        <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}"> -->
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="CanvasBackground" Color="#00ff00"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.DataContext>
+            <vm:MainViewModel/>
+        </Grid.DataContext>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
+            <Button x:Name="NewGameButton" Content="Nowa gra" Margin="5" Command="{Binding NewGameCommand}"/>
+            <Button x:Name="LoadGameButton" Content="Wznów grę" Margin="5" Command="{Binding LoadGameCommand}"/>
+            <Button x:Name="SaveGameButton" Content="Zapisz grę" Margin="5" Command="{Binding SaveGameCommand}"/>
+            <Button x:Name="ExitButton" Content="Wyjdź" Margin="5" Command="{Binding ExitCommand}"/>
+            <TextBlock Text="Liczba kul:" VerticalAlignment="Center"/>
+            <TextBox x:Name="NumberOfBallsTextBox" Width="50" Margin="5" VerticalAlignment="Center" Text="{Binding NumberOfBalls, Mode=TwoWay}"/>
+            <!-- <Button x:Name="SetNumberOfBallsButton" Content="Ustaw" Margin="5" Command="{Binding SetNumberOfBallsCommand}"/> -->
+        </StackPanel>
+
+        <ItemsControl ItemsSource="{Binding Balls}" Margin="20" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <!-- Width="{Binding Width, RelativeSource={RelativeSource AncestorType=ItemsControl}}" -->
+                <!-- Height="{Binding Height, RelativeSource={RelativeSource AncestorType=ItemsControl}}" -->
+                <ItemsPanelTemplate>
+                    <Canvas Width="800"
+                            Height="600"
+                            Background="{StaticResource CanvasBackground}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding XCordinate}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding YCordinate}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Fill="Red" Stroke="Brown" Width="{Binding R}" Height="{Binding R}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>
