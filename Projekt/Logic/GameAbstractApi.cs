@@ -21,6 +21,8 @@ namespace Logic
         public abstract List<Ball> GetBallsList();
         public abstract void CreateBallsList(int balls);
         public abstract List<Ball> checkCollisions(Ball kulka);
+        public abstract void LoadGame(string saveName);
+        public abstract void SaveGame(string saveName);
 
     }
 }

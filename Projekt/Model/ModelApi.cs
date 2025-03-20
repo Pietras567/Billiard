@@ -72,5 +72,22 @@ namespace Model
                 boardModel.Balls.Add(new BallModel(ball));
             }
         }
+
+        public override void LoadGame(string saveName)
+        {
+            GameAPI.LoadGame(saveName);
+
+            boardModel.Balls.Clear();
+            
+            foreach (var ball in GameAPI.GetBallsList())
+            {
+                boardModel.Balls.Add(new BallModel(ball));
+            }
+        }
+
+        public override void SaveGame(string saveName)
+        {
+            GameAPI.SaveGame(saveName);
+        }
     }
 }

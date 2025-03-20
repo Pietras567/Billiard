@@ -17,6 +17,8 @@ namespace ViewModel
 
         private int numberOfBalls;
 
+        private string saveName;
+
         public ModelAbstractApi ModelAPI { get; set; }
 
         public MainViewModel(ModelAbstractApi? API = null)
@@ -36,6 +38,16 @@ namespace ViewModel
             ExitCommand = new RelayCommand(param => Exit());
             SetNumberOfBallsCommand = new RelayCommand(param => SetNumberOfBalls());
             boardModel = ModelAPI.createBoard(600, 800);
+        }
+
+        public string SaveName
+        {
+            get { return saveName; }
+            set
+            {
+                saveName = value;
+                OnPropertyChanged(nameof(SaveName));
+            }
         }
 
         public int NumberOfBalls
@@ -133,12 +145,12 @@ namespace ViewModel
 
         private void LoadGame()
         {
-            // Kod do wczytania gry
+            ModelAPI.LoadGame(saveName);
         }
 
         private void SaveGame()
         {
-            // Kod do zapisania gry
+            ModelAPI.SaveGame(saveName);
         }
 
         private void Exit()

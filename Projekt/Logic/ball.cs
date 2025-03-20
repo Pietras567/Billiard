@@ -8,19 +8,19 @@ namespace Logic
     {
         private ballData ball;
 
-        public delegate void MakeMoveDelegate(int height, int width, List<Ball> ballsCollisions, object lockObject);
+        //public delegate void MakeMoveDelegate(int height, int width, List<Ball> ballsCollisions, object lockObject);
 
-        public MakeMoveDelegate MakeMoveMethod { get; set; }
+        //public MakeMoveDelegate MakeMoveMethod { get; set; }
 
-        public void SetMakeMoveMethod(MakeMoveDelegate method)
-        {
-            MakeMoveMethod = method;
-        }
+        //public void SetMakeMoveMethod(MakeMoveDelegate method)
+        //{
+        //    MakeMoveMethod = method;
+        //}
 
         public Ball(ballData kula)
         {
             this.ball = kula;
-            SetMakeMoveMethod(this.MakeMove);
+            //SetMakeMoveMethod(this.MakeMove);
             ball.PropertyChanged += onUpdate;
         }
 
@@ -84,7 +84,7 @@ namespace Logic
         {
             ball.SetverticalMove(value);
         }
-
+        /*
         public void MakeMove(int maxV, int maxH, List<Ball> collisions, object lockObject)
         {
             // Wejdź do sekcji krytycznej
@@ -109,21 +109,29 @@ namespace Logic
                         double newHorizontalMove2 = (b.GethorizontalMove() * (Mass - b.Mass) + (2 * Mass * GethorizontalMove())) / (Mass + b.Mass);
                         double newVerticalMove2 = (b.GetverticalMove() * (Mass - b.Mass) + (2 * Mass * GetverticalMove())) / (Mass + b.Mass);
 
+                        string toSave = Mass + " " + b.Mass + " " + GethorizontalMove() + " " + GetverticalMove() + " " + b.GethorizontalMove() 
+                            + " " + b.GetverticalMove() + " ";
 
-                        Console.WriteLine("Stare XV1: " + newHorizontalMove1);
-                        Console.WriteLine("Stare YV1: " + newVerticalMove1);
-                        Console.WriteLine("Stare XV2: " + newHorizontalMove2);
-                        Console.WriteLine("Stare YV2: " + newVerticalMove2);
+                        Console.WriteLine("Stare XV1: " + GethorizontalMove());
+                        Console.WriteLine("Stare YV1: " + GetverticalMove());
+                        Console.WriteLine("Stare XV2: " + b.GethorizontalMove());
+                        Console.WriteLine("Stare YV2: " + b.GetverticalMove());
+
 
                         SethorizontalMove((int)newHorizontalMove1);
                         SetverticalMove((int)newVerticalMove1);
                         b.SethorizontalMove((int)newHorizontalMove2);
                         b.SetverticalMove((int)newVerticalMove2);
 
+                        toSave = toSave + GethorizontalMove() + " " + GetverticalMove() + " " + b.GethorizontalMove()
+                            + " " + b.GetverticalMove();
+
                         Console.WriteLine("Nowe XV1: " + (int)newHorizontalMove1);
                         Console.WriteLine("Nowe YV1: " + (int)newVerticalMove1);
                         Console.WriteLine("Nowe XV2: " + (int)newHorizontalMove2);
                         Console.WriteLine("Nowe YV2: " + (int)newVerticalMove2);
+
+                       
 
                         //int val1 = newMoves[this].Item1;
                         //int val2 = newMoves[this].Item2;
@@ -269,7 +277,7 @@ namespace Logic
                 // Wyjdź z sekcji krytycznej
                 Monitor.Exit(lockObject);
             }
-        }
+        }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
 

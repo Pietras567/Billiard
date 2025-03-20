@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Data
 {
@@ -25,12 +28,17 @@ namespace Data
             this.mass = mass;
         }
 
-
-        public int Mass
+        [JsonConstructor]
+        public ballData(int XCordinate, int YCordinate, int R, int Mass, int HorizontalMove, int VerticalMove)
         {
-            get { return mass; }
-            set { mass = value; OnPropertyChanged("Mass"); }
+            this.xCordinate = XCordinate;
+            this.yCordinate = YCordinate;
+            this.r = R;
+            this.mass = Mass;
+            this.HorizontalMove = HorizontalMove;
+            this.VerticalMove = VerticalMove;
         }
+
 
         public int XCordinate
         {
@@ -46,6 +54,21 @@ namespace Data
         {
             get { return r; }
             set { r = value; OnPropertyChanged("Rad"); }
+        }
+        public int Mass
+        {
+            get { return mass; }
+            set { mass = value; OnPropertyChanged("Mass"); }
+        }
+        public int HorizontalMove
+        {
+            get { return horizontalMove; }
+            set { horizontalMove = value; OnPropertyChanged("horizontalMove"); }
+        }
+        public int VerticalMove
+        {
+            get { return verticalMove; }
+            set { verticalMove = value; OnPropertyChanged("verticalMove"); }
         }
 
         public int GethorizontalMove()

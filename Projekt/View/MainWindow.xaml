@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="Billiards Game" Height="750" Width="900" WindowStartupLocation="CenterScreen">
+        Title="Billiards Game" Height="750" Width="900" WindowStartupLocation="CenterScreen"
+        Background="SlateGray">
         <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}"> -->
 
     <Window.Resources>
@@ -26,6 +27,7 @@
             <Button x:Name="NewGameButton" Content="Nowa gra" Margin="5" Command="{Binding NewGameCommand}"/>
             <Button x:Name="LoadGameButton" Content="Wznów grę" Margin="5" Command="{Binding LoadGameCommand}"/>
             <Button x:Name="SaveGameButton" Content="Zapisz grę" Margin="5" Command="{Binding SaveGameCommand}"/>
+            <TextBox x:Name="SaveNameTextBox" Width="50" Margin="5" VerticalAlignment="Center" Text="{Binding SaveName, Mode=TwoWay}"/>
             <Button x:Name="ExitButton" Content="Wyjdź" Margin="5" Command="{Binding ExitCommand}"/>
             <TextBlock Text="Liczba kul:" VerticalAlignment="Center"/>
             <TextBox x:Name="NumberOfBallsTextBox" Width="50" Margin="5" VerticalAlignment="Center" Text="{Binding NumberOfBalls, Mode=TwoWay}"/>
@@ -50,7 +52,7 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse Fill="Red" Stroke="Brown" Width="{Binding R}" Height="{Binding R}" />
+                    <Ellipse Fill="SaddleBrown" Stroke="Brown" Width="{Binding R}" Height="{Binding R}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
