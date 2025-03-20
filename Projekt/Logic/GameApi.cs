@@ -117,8 +117,10 @@ namespace Logic
             cancellationTokenSource = null;
             cancellationTokenSource = new CancellationTokenSource(); // Inicjujemy CancellationTokenSource
             DataApi.resetBufor();
+            int i = 0;
             foreach (var ball in board.Balls)
             {
+                ball.BallD.BilaNo = i;
                 // Deklaracja makeMoveAction
                 Action<int, int, object, Ball> makeMoveAction = this.MakeMove;
 
@@ -126,7 +128,18 @@ namespace Logic
                 //Func<Ball, List<Ball>> checkCollisionsFunc = checkCollisions;
 
                 DataApi.newGame(makeMoveAction, ball, board.Height - ball.R, board.Width - ball.R, DataApi.getCommonLock(), cancellationTokenSource.Token);
+                i++;
             }
+
+            Task.Run(async () =>
+            {
+                while (!cancellationTokenSource.IsCancellationRequested)
+                {
+
+                    this.DataApi.zapisz_bufor();
+                    await Task.Delay(30, cancellationTokenSource.Token); // Częstotliwość
+                }
+            }, cancellationTokenSource.Token);
         }
 
 
@@ -278,7 +291,7 @@ namespace Logic
                         b.SetverticalMove((int)newVerticalMove2);
 
                         toSave = toSave + bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + b.GethorizontalMove()
-                            + " " + b.GetverticalMove();
+                            + " " + b.GetverticalMove() + " " + b.BallD.BilaNo + " " + bila.BallD.BilaNo;
 
                         Console.WriteLine("Nowe XV1: " + (int)newHorizontalMove1);
                         Console.WriteLine("Nowe YV1: " + (int)newVerticalMove1);
@@ -395,7 +408,7 @@ namespace Logic
                         bila.SethorizontalMove(bila.GethorizontalMove() * -1);
                         bila.XCordinate += afterHit;
 
-                        toSave += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate;
+                        toSave += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate + " " + bila.BallD.BilaNo;
                         DataApi.DodajDaneKolizjeZeScianami(toSave);
                     }
                     else if (bila.XCordinate + bila.GethorizontalMove() <= 0)
@@ -405,7 +418,7 @@ namespace Logic
                         bila.SethorizontalMove(bila.GethorizontalMove() * -1);
                         bila.XCordinate += afterHit;
 
-                        toSave += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate;
+                        toSave += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate + " " + bila.BallD.BilaNo;
                         DataApi.DodajDaneKolizjeZeScianami(toSave);
                     }
                     else
@@ -421,7 +434,7 @@ namespace Logic
                         bila.SetverticalMove(bila.GetverticalMove() * -1);
                         bila.YCordinate += afterHit;
 
-                        toSave2 += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate;
+                        toSave2 += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate + " " + bila.BallD.BilaNo;
                         DataApi.DodajDaneKolizjeZeScianami(toSave2);
                     }
                     else if (bila.YCordinate + bila.GetverticalMove() <= 0)
@@ -431,7 +444,7 @@ namespace Logic
                         bila.SetverticalMove(bila.GetverticalMove() * -1);
                         bila.YCordinate += afterHit;
 
-                        toSave2 += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate;
+                        toSave2 += bila.GethorizontalMove() + " " + bila.GetverticalMove() + " " + bila.XCordinate + " " + bila.YCordinate + " " + bila.BallD.BilaNo;
                         DataApi.DodajDaneKolizjeZeScianami(toSave2);
                     }
                     else

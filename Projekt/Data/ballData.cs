@@ -18,7 +18,7 @@ namespace Data
         private int horizontalMove = 0;
         private int verticalMove = 0;
         private int mass = 20;
-
+        private int bilaNo= 0;
 
         public ballData(int x, int y, int r, int mass)
         {
@@ -70,6 +70,8 @@ namespace Data
             get { return verticalMove; }
             set { verticalMove = value; OnPropertyChanged("verticalMove"); }
         }
+
+        public int BilaNo { get => bilaNo; set => bilaNo = value; }
 
         public int GethorizontalMove()
         {

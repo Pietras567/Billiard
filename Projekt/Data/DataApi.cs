@@ -25,6 +25,11 @@ namespace Data
             bufor.DodajDaneKolizjeKul(daneTekstowe);
         }
 
+        public override void zapisz_bufor()
+        {
+            bufor.ZapiszDaneDoPliku(null, null);
+        }
+
         public override void DodajDaneKolizjeZeScianami(string daneTekstowe)
         {
             bufor.DodajDaneKolizjeZeScianami(daneTekstowe);
@@ -68,6 +73,7 @@ namespace Data
                 while (!token.IsCancellationRequested)
                 {
                     //List<T> ballsCollisions = checkCollisionsFunc(ball);
+                    
                     makeMoveAction(height, width, lockObject, ball);
                     await Task.Delay(30, token); // Częstotliwość aktualizacji ruchu (10ms)
                 }
@@ -336,9 +342,9 @@ namespace Data
             {
                 // Rozdzielenie ciągu tekstowego na liczby
                 var liczbyTekstowe = daneTekstowe.Split(' ');
-                if (liczbyTekstowe.Length != 10)
+                if (liczbyTekstowe.Length != 12)
                 {
-                    throw new ArgumentException("Expected exactly 10 values in the input string.");
+                    throw new ArgumentException("Expected exactly 12 values in the input string.");
                 }
 
                 var Mass_A = double.Parse(liczbyTekstowe[0], CultureInfo.InvariantCulture);
@@ -351,7 +357,9 @@ namespace Data
                 var NewVelocityY_A = double.Parse(liczbyTekstowe[7], CultureInfo.InvariantCulture);
                 var NewVelocityX_B = double.Parse(liczbyTekstowe[8], CultureInfo.InvariantCulture);
                 var NewVelocityY_B = double.Parse(liczbyTekstowe[9], CultureInfo.InvariantCulture);
-              
+                var BilaNo1 = double.Parse(liczbyTekstowe[10], CultureInfo.InvariantCulture);
+                var BilaNo2 = double.Parse(liczbyTekstowe[11], CultureInfo.InvariantCulture);
+
 
                 var kolizjaZKula = new
                 {
@@ -364,7 +372,9 @@ namespace Data
                     NewVelocityX_B,
                     NewVelocityY_B,
                     Mass_A,
-                    Mass_B
+                    Mass_B,
+                    BilaNo1,
+                    BilaNo2
                 };
 
                 var dane = new
@@ -384,9 +394,9 @@ namespace Data
             {
                 // Rozdzielenie ciągu tekstowego na liczby
                 var liczbyTekstowe = daneTekstowe.Split(' ');
-                if (liczbyTekstowe.Length != 9)
+                if (liczbyTekstowe.Length != 10)
                 {
-                    throw new ArgumentException("Expected exactly 9 values in the input string.");
+                    throw new ArgumentException("Expected exactly 10 values in the input string.");
                 }
 
                 var Mass = double.Parse(liczbyTekstowe[0], CultureInfo.InvariantCulture);
@@ -398,6 +408,8 @@ namespace Data
                 var NewVelocityY = double.Parse(liczbyTekstowe[4], CultureInfo.InvariantCulture);
                 var newX = double.Parse(liczbyTekstowe[7], CultureInfo.InvariantCulture);
                 var newY = double.Parse(liczbyTekstowe[8], CultureInfo.InvariantCulture);
+                var BilaNo = double.Parse(liczbyTekstowe[9], CultureInfo.InvariantCulture);
+
 
 
                 var kolizjaZeScianami = new
@@ -410,7 +422,8 @@ namespace Data
                     NewVelocityX,
                     NewVelocityY,
                     newX,
-                    newY
+                    newY,
+                    BilaNo
                 };
 
                 var dane = new
@@ -432,7 +445,7 @@ namespace Data
                 ZapiszDaneDoPliku(null, null);
             }
 
-            private void ZapiszDaneDoPliku(object sender, EventArgs e)
+            public void ZapiszDaneDoPliku(object sender, EventArgs e)
             {
                 if (!Directory.Exists(Path))
                 {

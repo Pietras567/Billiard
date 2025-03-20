@@ -35,5 +35,8 @@ namespace Data
 
         public abstract void resetBufor();
 
+        public abstract void zapisz_bufor();
+
+
     }
 }
