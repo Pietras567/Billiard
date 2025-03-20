@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{2B439ECE-E9CD-49C3-98F2-A3C11EB29D88}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{4FBA86CB-0F9B-4F42-8EC1-882567BE9483}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2019A974-DB29-4A3F-A0B8-7F59FDA13BF4} = {2019A974-DB29-4A3F-A0B8-7F59FDA13BF4}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{B4A419D7-60CD-4685-8243-1A752BB6C804}"
 EndProject
@@ -21,7 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{08047FB6-6DDC-4887-9520-D5B586520D59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{66800001-7B2A-4CA9-969F-46E11CA9F31E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{66800001-7B2A-4CA9-969F-46E11CA9F31E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{08047FB6-6DDC-4887-9520-D5B586520D59} = {08047FB6-6DDC-4887-9520-D5B586520D59}
+		{4FBA86CB-0F9B-4F42-8EC1-882567BE9483} = {4FBA86CB-0F9B-4F42-8EC1-882567BE9483}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

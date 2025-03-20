@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Logic;
 using Data;
 using NuGet.Frameworks;
+using Moq;
 
 namespace UnitTest
 {
@@ -107,6 +108,42 @@ namespace UnitTest
             gameAbstractApi.CreateBallsList(5);
             gameAbstractApi.newGame();
             // Success if no exceptions are thrown
+        }
+
+        [TestMethod]
+        public void lockObjectTest()
+        {
+            DataAbstractApi dataAbstractApi = DataAbstractApi.CreateApi();
+            GameAbstractApi gameAbstractApi = GameAbstractApi.CreateApi(dataAbstractApi);
+            Assert.IsNotNull(dataAbstractApi.getCommonLock());
+
+            Monitor.Enter(dataAbstractApi.getCommonLock());
+            // Asercja ze jest zablokowany, innym watkiem
+            Task.Run(() =>
+            {
+                bool isLocked = Monitor.TryEnter(dataAbstractApi.getCommonLock());
+                Assert.IsFalse(isLocked);
+            });
+        }
+
+        [TestMethod]
+        public void checkCollisionsTest()
+        {
+            DataAbstractApi dataAbstractApi = DataAbstractApi.CreateApi();
+            GameAbstractApi gameAbstractApi = GameAbstractApi.CreateApi(dataAbstractApi);
+            gameAbstractApi.createBoard(600, 800);
+            gameAbstractApi.CreateBallsList(2);
+
+            // zmieniamy parametry kul tak zeby sie zderzyly
+            gameAbstractApi.GetBallsList()[0].XCordinate = 0;
+            gameAbstractApi.GetBallsList()[0].YCordinate = 0;
+            gameAbstractApi.GetBallsList()[1].XCordinate = 0;
+            gameAbstractApi.GetBallsList()[1].YCordinate = 0;
+
+            List <Ball> collisions = gameAbstractApi.checkCollisions(gameAbstractApi.GetBallsList()[0]);
+
+            // 1 kolizja
+            Assert.AreEqual(expected: 1, actual: collisions.Count);
         }
     }
 }

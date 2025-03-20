@@ -20,6 +20,7 @@ namespace Logic
         public abstract Ball createBall(int R = 0, int xCord = -5, int yCord = -5);
         public abstract List<Ball> GetBallsList();
         public abstract void CreateBallsList(int balls);
+        public abstract List<Ball> checkCollisions(Ball kulka);
 
     }
 }

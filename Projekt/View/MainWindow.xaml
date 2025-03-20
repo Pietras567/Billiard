@@ -9,7 +9,7 @@
         <!-- DataContext="{Binding RelativeSource={RelativeSource Self}}"> -->
 
     <Window.Resources>
-        <SolidColorBrush x:Key="CanvasBackground" Color="#00ff00"/>
+        <SolidColorBrush x:Key="CanvasBackground" Color="#418D31"/>
     </Window.Resources>
 
     <Grid>

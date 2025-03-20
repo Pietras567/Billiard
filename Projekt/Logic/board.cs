@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using Data;
 namespace Logic {
     public class Board : INotifyPropertyChanged
     {
-        private int height;
-        private int width;
+        private boardData board;
         private List<Ball> balls = new List<Ball>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -16,13 +15,13 @@ namespace Logic {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public global::System.Int32 Height { get => height; set => height = value; }
-        public global::System.Int32 Width { get => width; set => width = value; }
+        public global::System.Int32 Height { get => board.Height; set => board.Height = value; }
+        public global::System.Int32 Width { get => board.Width; set => board.Width = value; }
         public List<Ball> Balls { get => balls; set => balls = value; }
+        public boardData BoardD { get => board; set => board = value; }
 
-        public Board(int height, int width) {
-            this.height = height;
-            this.width = width;
+        public Board(boardData board) {
+            this.board = board;
         }
     }
 }

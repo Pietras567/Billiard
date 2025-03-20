@@ -2,6 +2,7 @@
 using Logic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -103,12 +104,12 @@ namespace Model
             }
         }
 
-        public void MakeMove(int maxV, int maxH)
-        {
-            ball.MakeMove(maxV, maxH);
-            OnPropertyChanged("XCordinate");
-            OnPropertyChanged("YCordinate");
-        }
+        //public void MakeMove(int maxV, int maxH, List<Ball> collisions)
+        //{
+        //    ball.MakeMove(maxV, maxH, collisions);
+        //    OnPropertyChanged("XCordinate");
+        //    OnPropertyChanged("YCordinate");
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
 
